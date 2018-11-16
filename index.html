@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>My Vue App</title>
+    <style type="text/css">
+      body {
+        font-size: 16px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+      }
+      .container {
+        width: 300px;
+        margin: auto;
+      }
+      #app h1 {
+        font-size: 16px;
+        border-bottom: 1px solid #ddd;
+        padding: 16px 0;
+      }
+      #app ul {
+        padding: 0;
+        list-style: none;
+      }
+      #app li {
+        line-height: 1.5;
+      }
+      #app input[type="text"] {
+        padding: 2px;
+      }
+      span.done {
+        text-decoration: line-through;
+        color: #bbb;
+      }
+      .command {
+        font-size: 12px;
+        cursor: pointer;
+        color: #08c;
+      }
+      .info {
+        color: #ddd;
+        font-size: 12px;
+        font-weit: normal;
+      }
+      .purge {
+        float: right;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app" class="container">
+      <h1>
+        <button @click="purge" class="purge">Purge</button> My Todos
+        <span class="info">({{ remaining.length }}/{{ todos.length}})</span>
+      </h1>
+      <ul v-if="todos.length">
+        <li v-for="(todo, index) in todos">
+          <input type="checkbox" v-model="todo.isDone" />
+          <span :class="{done: todo.isDone}">{{ todo.title }}</span>
+          <span class="command" @click="deleteItem(index)">[x]</span>
+        </li>
+      </ul>
+      <ul v-else>
+        Todoがありません。
+      </ul>
+      <form @submit.prevent="addItem">
+        <input type="text" v-model="newItem" />
+        <input type="submit" value="add" />
+      </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </body>
+</html>
